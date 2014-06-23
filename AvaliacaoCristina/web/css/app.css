@@ -1,0 +1,21 @@
+.keep
+{
+    max-width: 350px;
+    padding: 10px;
+    padding-top: 0px;
+    margin: 5px;
+    background: #f5f5f5;
+    float: left;
+    -webkit-box-shadow: 4px 4px 15px 0px rgba(50, 50, 50, 0.75);
+    -moz-box-shadow:    4px 4px 15px 0px rgba(50, 50, 50, 0.75);
+    box-shadow:         4px 4px 15px 0px rgba(50, 50, 50, 0.75);
+}
+body {
+    padding-top: 60px;
+}
+.formulario
+{
+    padding: 10px;
+    padding-top: 0px;
+    margin: 5px;
+}

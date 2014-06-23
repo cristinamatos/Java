@@ -1,0 +1,108 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Listagem Itens</title> 
+        <link rel="stylesheet" href="#{request.contextPath}/css/bootstrap.min.css"/>
+        <link href="#{request.contextPath}/css/app.css" rel="stylesheet"/>
+    </h:head> 
+    <h:body>    
+        <h:form>   
+            <ui:include src="cabecalho.xhtml" />
+
+            <div class="container-fluid">
+                <c:forEach items="${listaComprasMB.listas}" var="l"> 
+                    <div class="keep">
+                        <h3>#{l.nome}
+                            <div align="right">
+                                <h:commandLink  action="listListas" actionListener="#{listaComprasMB.excluirLista}" >
+                                    <f:attribute name="lista" value="#{l}" />
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </h:commandLink>
+                            </div>
+                        </h3> 
+
+
+                        <table class="table table-hover">
+                            <tr>
+                                <th>
+                                </th>
+                                <th>
+                                    Nome 
+                                </th>
+                                <th>Preço</th>
+                                <th></th>
+                                <th></th> 
+                            </tr>
+                            <c:forEach items="${l.itens}" var="i">  
+                                <tr data-comprado="#{i.isComprado}">
+                                    <td>                                        
+                                        <h:selectBooleanCheckbox value="#{i.isComprado}" onclick="submit()" immediate="true"  valueChangeListener="${listaComprasMB.mudaEstado}">
+                                            <f:attribute name="item" value="#{i}" />
+                                            <f:attribute name="lista" value="#{l}" />
+                                        </h:selectBooleanCheckbox>
+                                    </td>
+                                    <td>
+                                        <h:outputText value="#{i.nome}"/>
+                                    </td>
+                                    <td>
+                                        <h:outputText value="#{i.preco}"/>
+                                    </td>
+                                    <td>
+                                        <h:commandLink action="editItemLista" actionListener="#{listaComprasMB.editaItem}">
+                                            <f:attribute name="item" value="#{i}" />
+                                            <f:attribute name="lista" value="#{l}" />
+                                            <span class="glyphicon glyphicon-pencil"></span>
+
+                                        </h:commandLink>   
+                                    </td>
+                                    <td>                                        
+                                        <h:commandLink action="listListas" actionListener="#{listaComprasMB.removeToItemList}" >
+                                            <f:attribute name="item" value="#{i}" />
+                                            <f:attribute name="lista" value="#{l}" />
+                                            <span class="glyphicon glyphicon-trash"></span>
+                                        </h:commandLink>
+                                    </td>
+                                </tr> 
+                            </c:forEach>  
+                                                        
+                            <h:commandLink action="cadItemListaLista" actionListener="#{listaComprasMB.addSaveToItemList}" > 
+                                 <f:attribute name="lista" value="#{l}" />
+                                Adicionar Item <span  class="glyphicon glyphicon-plus"></span>
+                            </h:commandLink>   
+
+                            
+                            
+                            <tr>
+                                <th>
+                                </th>
+                                <th>
+                                    <b>Total</b>
+                                </th>
+                                <th>#{l.totalLista}</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </table>
+                    </div>
+                </c:forEach> 
+            </div>
+
+        </h:form>
+
+        <script src="#{request.contextPath}/js/jquery-1.11.1.min.js"></script>
+        <script src="#{request.contextPath}/js/bootstrap.min.js"></script>
+        <script src="#{request.contextPath}/js/docs.min.js"></script>
+        <style type="text/css">
+            [data-comprado="true"] {
+                color:lightgrey;
+                text-decoration: line-through;
+            }
+        </style>
+    </h:body>
+</html>
+
