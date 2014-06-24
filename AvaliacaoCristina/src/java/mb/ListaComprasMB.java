@@ -93,11 +93,7 @@ public class ListaComprasMB {
         
         item.setIsComprado(novoValor);
         lista = (ListaCompras) e.getComponent().getAttributes().get("lista");
-      /*  if (US.equals((String) e.getNewValue())) {
-            context.getViewRoot().setLocale(Locale.US);
-        } else {
-            context.getViewRoot().setLocale(Locale.CANADA);
-        }*/
+
         context.renderResponse();
         dao.save(lista);
        }

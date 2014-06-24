@@ -5,15 +5,33 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-    <h:head>
+    <h:head> 
         <title>Listagem Itens</title> 
         <link rel="stylesheet" href="#{request.contextPath}/css/bootstrap.min.css"/>
         <link href="#{request.contextPath}/css/app.css" rel="stylesheet"/>
     </h:head> 
-    <h:body>    
-        <h:form>   
-            <ui:include src="cabecalho.xhtml" />
+    <h:body>     
+        <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="listListas.xhtml">Avaliação</a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav navbar-left">
+                        <li><a href="cadListaCompras.xhtml"> <span class="glyphicon glyphicon-plus"></span>Nova Lista                      
+                            </a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
 
+        <h:form> 
             <div class="container-fluid">
                 <c:forEach items="${listaComprasMB.listas}" var="l"> 
                     <div class="keep">
@@ -40,7 +58,7 @@
                             </tr>
                             <c:forEach items="${l.itens}" var="i">  
                                 <tr data-comprado="#{i.isComprado}">
-                                    <td>                                        
+                                    <td>         
                                         <h:selectBooleanCheckbox value="#{i.isComprado}" onclick="submit()" immediate="true"  valueChangeListener="${listaComprasMB.mudaEstado}">
                                             <f:attribute name="item" value="#{i}" />
                                             <f:attribute name="lista" value="#{l}" />
@@ -69,14 +87,14 @@
                                     </td>
                                 </tr> 
                             </c:forEach>  
-                                                        
+
                             <h:commandLink action="cadItemListaLista" actionListener="#{listaComprasMB.addSaveToItemList}" > 
-                                 <f:attribute name="lista" value="#{l}" />
+                                <f:attribute name="lista" value="#{l}" />
                                 Adicionar Item <span  class="glyphicon glyphicon-plus"></span>
                             </h:commandLink>   
 
-                            
-                            
+
+
                             <tr>
                                 <th>
                                 </th>
